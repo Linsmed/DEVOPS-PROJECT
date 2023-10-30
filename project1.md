@@ -7,3 +7,7 @@
 `sudo apt update`
 
 ![sudo apt update](./Images/sudo_apt.PNG)
+
+- run apache2 package installation
+  `sudo apt install apache2`
+  ![sudo apt install](./Images/sudo-apt-install.PNG)
