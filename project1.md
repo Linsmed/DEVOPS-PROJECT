@@ -6,12 +6,16 @@
 
 `sudo apt update`
 
+
 ![sudo apt update](./Images/sudo_apt.PNG)
 
 - run apache2 package installation
 
 `sudo apt install apache2`
-![sudo apt install](./Images/sudo-apt-install.PNG)
+
+
+![sudo apt install](./Images/
+sudo-apt-install.PNG)
 
 ##### To be sure apache is running as a service in my OS, I ran the following command
 
@@ -24,13 +28,16 @@
 
 `curl http://localhost:80`
 
+
 ![curl](./Images/curl.PNG)
 
 - To test how my Apache HTTP server can respond to requests from the Internet. I opened chrome and pasted this url
 
 `http://107.23.157.242:80`
 
+
 ![apache](./Images/apache-website.PNG)
+
 
 # STEP 2 - INSTALLATION OF MYSQL
 
@@ -38,24 +45,33 @@
 
 `sudo apt install mysql-server`
 
+
 ![mysql](./Images/mysql-1.PNG)
+
 
 - I logged in into mysql by running the code below
 
+
 `sudo mysql`
+
 
 ![mysql](./Images/mysql.PNG)
 
 # STEP 3 - INSTALLATION OF PHP
 
 - Installation of PHP was done using this code.
+
+
   `sudo apt install php libapache2-mod-php php-mysql`
+
 
 - To confirm the version of PHP installed, I ran this command.
 
   `php -v`
 
+
   ![php version](./Images/php-version.PNG)
+
 
   # STEP4- CREATION OF VIRTUAL HOST FOR MY WEBSITE USING APACHE
 
@@ -67,10 +83,16 @@
 `sudo mkdir /var/www/projectlamp`
 
 -Next, I assigned ownership of the directory with my current system user(ubuntu):
+
+
 `sudo chown -R $USER:$USER /var/www/projectlamp`
 
+
 - Then, I created and opened a new configuration file in Apache’s sites-available directory using Vi:
+
+
   `sudo vi /etc/apache2/sites-available/projectlamp.conf`
+  
 
 - This created a new blank file. I Paste in the following bare-bones configuration by hitting on i on the keyboard to enter the insert mode, and pasted the text:
 
@@ -119,6 +141,7 @@
   , I created an index.html file in that location so that I can test that the virtual host works as expected:
 
 `sudo echo 'Hello LAMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' 
+
 $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectlamp/index.html`
 
 - Now go to your browser and try to open your website URL using IP address:
@@ -126,6 +149,7 @@ $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projec
 `http://<Public-IP-Address>:80`
 
 ![alt text](./Images/display.PNG)
+
 
 # STEP 5 - ENABLE PHP ON THE WEBSITE
 
@@ -138,6 +162,7 @@ $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projec
         DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
 </IfModule>`
 
+
 - After saving and closing the file, you will need to reload Apache so the changes take effect:
   `sudo systemctl reload apache2`
 
@@ -147,8 +172,12 @@ Now that you have a custom location to host your website’s files and folders, 
 
 Create a new file named index.php inside your custom web root folder:
 
+
 `vim /var/www/projectlamp/index.php`
+
 ![alt text](./Images/php-config.PNG)
 
+
 - I saved and closed the file, refreshed the page and saw:
+
   ![alt text](./Images/php-live.PNG)
