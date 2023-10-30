@@ -39,3 +39,21 @@
 `sudo apt install mysql-server`
 
 ![mysql](./Images/mysql-1.PNG)
+
+- I logged in into mysql by running the code below
+
+`sudo mysql`
+
+![mysql](./Images/mysql.PNG)
+
+# STEP 3 - INSTALLATION OF PHP
+
+- Installation of PHP was done using this code.
+  `sudo apt install php libapache2-mod-php php-mysql`
+
+- To confirm the version of PHP installed, I ran this command.
+
+   
+   `php -v`
+
+  ![php version](./Images/php-version.PNG)
