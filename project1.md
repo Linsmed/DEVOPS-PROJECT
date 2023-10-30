@@ -32,7 +32,10 @@
 
 ![apache](./Images/apache-website.PNG)
 
-
 # STEP 2 - INSTALLATION OF MYSQL
 
 - MYSQL is a Database Management System (DBMS) that stores and manages data for my site in a relational database. MySQL is a popular relational database management system used within PHP environments, so we will use it in our project.
+
+`sudo apt install mysql-server`
+
+![mysql](./Images/mysql-1.PNG)
