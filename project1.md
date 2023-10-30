@@ -10,8 +10,8 @@
 
 - run apache2 package installation
 
-  `sudo apt install apache2`
-  ![sudo apt install](./Images/sudo-apt-install.PNG)
+`sudo apt install apache2`
+![sudo apt install](./Images/sudo-apt-install.PNG)
 
 ##### To be sure apache is running as a service in my OS, I ran the following command
 
