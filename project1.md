@@ -16,4 +16,5 @@
 ##### To be sure apache is running as a service in my OS, I ran the following command
 
 `sudo systemctl status apache2`
+
 ![apache2-active](./Images/apache2-active.PNG)
