@@ -31,3 +31,8 @@
 `http://107.23.157.242:80`
 
 ![apache](./Images/apache-website.PNG)
+
+
+# STEP 2 - INSTALLATION OF MYSQL
+
+- MYSQL is a Database Management System (DBMS) that stores and manages data for my site in a relational database. MySQL is a popular relational database management system used within PHP environments, so we will use it in our project.
