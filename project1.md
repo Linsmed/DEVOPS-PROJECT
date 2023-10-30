@@ -29,3 +29,5 @@
 - To test how my Apache HTTP server can respond to requests from the Internet. I opened chrome and pasted this url
 
 `http://107.23.157.242:80`
+
+![apache](./Images/apache-website.PNG)
