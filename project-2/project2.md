@@ -68,7 +68,6 @@
 
 ![alt text](../project-2/images/php-install.PNG)
 
-
 # STEP 4 - CONFIGURING NGINX TO USE PHP PROCESSOR
 
 - On Ubuntu 20.04, Nginx has one server block enabled by default and is configured to serve documents out of a directory at /var/www/html. While this works well for a single site, it can become difficult to manage if you are hosting multiple sites. Instead of modifying /var/www/html, we’ll create a directory structure within /var/www for the your_domain website, leaving /var/www/html in place as the default directory to be served if a client request does not match any other sites.
@@ -87,38 +86,125 @@
 
 - Activate your configuration by linking to the config file from Nginx’s sites-enabled directory:
 
- `sudo ln -s /etc/nginx/sites-available/projectLEMP /etc/nginx/sites-enabled/`
+`sudo ln -s /etc/nginx/sites-available/projectLEMP /etc/nginx/sites-enabled/`
 
 - I tested the configuration by running:
 
 `sudo nginx -t`
 
-      
 ![alt text](../project-2/images/error-free.PNG)
 
+- To disable default Nginx host that is currently configured to listen on port 80, for this run:
 
+`sudo unlink /etc/nginx/sites-enabled/default`
 
- - To disable default Nginx host that is currently configured to listen on port 80, for this run:
+- To apply the changes, I reloaded Nginx with:
 
+`sudo systemctl reload nginx`
 
-  `sudo unlink /etc/nginx/sites-enabled/default`
+- Your new website is now active, but the web root /var/www/projectLEMP is still empty. Create an index.html file in that location so that we can test that your new server block works as expected:
 
-  - To apply the changes, I reloaded Nginx with:
+`sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP'`
 
+`$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectLEMP/index.html`
 
-  `sudo systemctl reload nginx`
+- Then I opened the below url in my chrome browser :
 
+`http://54.226.16.249/`
 
-   - Your new website is now active, but the web root /var/www/projectLEMP is still empty. Create an index.html file in that location so that we can test that your new server block works as expected:
+![alt text](../project-2/images/active.PNG)
 
- `sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP'`
+# STEP 5 - TESTING PHP WITH NGINX
 
-  `$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectLEMP/index.html`
+- To test php to validate that Nginx can correctly hand .php files off to your PHP processor.
+- run this code:
+  `sudo vi /var/www/projectLEMP/info.php`
 
-   - Then I opened the below url in my chrome browser :
-  
-  `http://54.226.16.249/`
+- You can now access this page in your web browser by visiting the domain name or public IP address you’ve set up in your Nginx configuration file, followed by /info.php:
 
-      
-  ![alt text](../project-2/images/active.PNG)
+`http://54.226.16.249/info.php`
 
+![alt text](../project-2/images/active.PNG)
+
+- To remove the file, I ran this command:
+
+`sudo rm /var/www/projectLEMP/info.php`
+
+# STEP 6 -RETRIEVING DATA FROM MYSQL DATABASE WITH PHP (CONTINUED)
+
+- I first connected to mysql console using:
+
+`sudo mysql`
+
+- To create a new database, I ran the following command from my MySQL console:
+
+`CREATE DATABASE `example_database`;`
+
+- The following command creates a new user named example_user, using mysql_native_password as default authentication method. We’re defining this user’s password as password, but you should replace this value with a secure password of your own choosing.
+
+`CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';`
+
+- Now we need to give this user permission over the example_database database:
+
+`GRANT ALL ON example_database.* TO 'example_user'@'%';`
+
+- Now exit the MySQL shell with:
+
+`exit`
+
+- You can test if the new user has the proper permissions by logging in to the MySQL console again, this time using the custom user credentials:
+
+![permission](../project-2/images/permssion.PNG)
+
+- To ensure I have access to database, I ran the following command:
+
+`SHOW DATABASES;`
+![database](../project-2/images/database.PNG)
+
+- Next, we’ll create a test table named todo_list. From the MySQL console, run the following statement:
+
+`CREATE TABLE example_database.todo_list ( item_id INT AUTO_INCREMENT,content VARCHAR(255PRIMARY KEY(item_id));`
+
+- Insert a few rows of content in the test table. You might want to repeat the next command a few times, using different VALUES:
+
+`INSERT INTO example_database.todo_list (content) VALUES ("My first important item");`
+
+- To confirm that the data was successfully saved to your table, run:
+
+`SELECT * FROM example_database.todo_list;mysql>  SELECT * FROM example_database.todo_list;`
+
+![alt text](../project-2/images/confirmation.PNG)
+
+- I exited mysql console using:
+
+`exit`
+
+- Now you can create a PHP script that will connect to MySQL and query for your content. Create a new PHP file in your custom web root directory using your preferred editor. We’ll use vi for that:
+
+`vi /var/www/projectLEMP/todo_list.php`
+
+`<?php
+$user = "example_user";
+$password = "password";
+$database = "example_database";
+$table = "todo_list";
+
+try {
+$db = new PDO("mysql:host=localhost;dbname=$database", $user, $password);
+  echo "<h2>TODO</h2><ol>";
+  foreach($db->query("SELECT content FROM $table") as $row) {
+echo "<li>" . $row['content'] . "</li>";
+}
+echo "</ol>";
+} catch (PDOException $e) {
+print "Error!: " . $e->getMessage() . "<br/>";
+die();
+}`
+
+- I saved and can now access this page in my web browser by visiting the domain name or public IP address configured for my website, followed by /todo_list.php:
+
+`http://54.226.16.249/todo_list.php`
+
+![alt text](../project-2/images/todo-list.PNG)
+
+# THE END!!!
