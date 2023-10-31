@@ -9,7 +9,6 @@
 
 - Node.js: A JavaScript runtime environment. It is used to run JavaScript on a machine rather than in a browser.
 
-
 # STEP 1 - BACKEND CONFIGURATION
 
 - Update ubuntu by runnig:
@@ -21,9 +20,8 @@
 - I upgraded ubuntu by running this command:
 
 `sudo apt upgrade`
+
 - This command upgrades to the latest version and discard the old version while update command update and still keep the old version
-
-
 
 ![ubuntu-upgrade](./ubuntu-upgrade.PNG)
 
@@ -59,3 +57,4 @@
 
 `npm init`
 
+![init](./initial.PNG)
