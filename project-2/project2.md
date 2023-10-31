@@ -85,39 +85,40 @@
 
 - This created a new blank file and following bare-bones configuration pasted:
 
-      - Activate your configuration by linking to the config file from Nginx’s sites-enabled directory:
+- Activate your configuration by linking to the config file from Nginx’s sites-enabled directory:
 
-       `sudo ln -s /etc/nginx/sites-available/projectLEMP /etc/nginx/sites-enabled/`
+ `sudo ln -s /etc/nginx/sites-available/projectLEMP /etc/nginx/sites-enabled/`
 
-       - I tested the configuration by running:
+- I tested the configuration by running:
 
-       `sudo nginx -t`
+`sudo nginx -t`
 
       
-       ![alt text](../project-2/images/error-free.PNG)
+![alt text](../project-2/images/error-free.PNG)
 
 
 
-       - To disable default Nginx host that is currently configured to listen on port 80, for this run:
+ - To disable default Nginx host that is currently configured to listen on port 80, for this run:
 
 
-       `sudo unlink /etc/nginx/sites-enabled/default`
+  `sudo unlink /etc/nginx/sites-enabled/default`
 
-       - To apply the changes, I reloaded Nginx with:
-
-
-       `sudo systemctl reload nginx`
+  - To apply the changes, I reloaded Nginx with:
 
 
-       - Your new website is now active, but the web root /var/www/projectLEMP is still empty. Create an index.html file in that location so that we can test that your new server block works as expected:
+  `sudo systemctl reload nginx`
 
-       `sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP'`
+
+   - Your new website is now active, but the web root /var/www/projectLEMP is still empty. Create an index.html file in that location so that we can test that your new server block works as expected:
+
+ `sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP'`
 
   `$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectLEMP/index.html`
 
-      - Then I opened the below url in my chrome browser :
-      `http://54.226.16.249/`
+   - Then I opened the below url in my chrome browser :
+  
+  `http://54.226.16.249/`
 
       
-      ![alt text](../project-2/images/active.PNG)
+  ![alt text](../project-2/images/active.PNG)
 
