@@ -31,3 +31,13 @@
   `http://54.226.16.249/`
 
 ![alt text](./images/Chrome-url-access.PNG)
+
+# STEP 2 - INSTALLING MYSQL
+
+- Now that I have a web server up and running, MySQL Database Management System (DBMS) was installed to be able to store and manage data for the site in a relational database.
+
+- To get MySQL installed, I ran this code:
+
+`sudo apt install mysql-server`
+
+![alt text](../project-2/images/mysql-install.PNG)
