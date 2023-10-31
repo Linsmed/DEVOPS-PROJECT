@@ -7,21 +7,21 @@
 `sudo apt update`
 
 
-![sudo apt update](./Images/sudo_apt.PNG)
+![sudo apt update](../project-1a/Images/sudo_apt.PNG)
 
 - run apache2 package installation
 
 `sudo apt install apache2`
 
 
-![sudo apt install](./Images/
+![sudo apt install](../project-1a/Images/
 sudo-apt-install.PNG)
 
 ##### To be sure apache is running as a service in my OS, I ran the following command
 
 `sudo systemctl status apache2`
 
-![apache2-active](./Images/apache2-active.PNG)
+![apache2-active](../project-1a/Images/apache2-active.PNG)
 
 - My server is running and I can access it locally and from the Internet (Source 0.0.0.0/0 means ‘from any IP address’).
 - To access it, run this command
@@ -29,14 +29,14 @@ sudo-apt-install.PNG)
 `curl http://localhost:80`
 
 
-![curl](./Images/curl.PNG)
+![curl](../project-1a/Images/curl.PNG)
 
 - To test how my Apache HTTP server can respond to requests from the Internet. I opened chrome and pasted this url
 
 `http://107.23.157.242:80`
 
 
-![apache](./Images/apache-website.PNG)
+![apache](../project-1a//Images/apache-website.PNG)
 
 
 # STEP 2 - INSTALLATION OF MYSQL
@@ -46,7 +46,7 @@ sudo-apt-install.PNG)
 `sudo apt install mysql-server`
 
 
-![mysql](./Images/mysql-1.PNG)
+![mysql](../project-1a//Images/mysql-1.PNG)
 
 
 - I logged in into mysql by running the code below
@@ -55,7 +55,7 @@ sudo-apt-install.PNG)
 `sudo mysql`
 
 
-![mysql](./Images/mysql.PNG)
+![mysql](../project-1a/Images/mysql.PNG)
 
 # STEP 3 - INSTALLATION OF PHP
 
@@ -70,7 +70,7 @@ sudo-apt-install.PNG)
   `php -v`
 
 
-  ![php version](./Images/php-version.PNG)
+  ![php version](../project-1a/Images/php-version.PNG)
 
 
   # STEP4- CREATION OF VIRTUAL HOST FOR MY WEBSITE USING APACHE
@@ -148,7 +148,7 @@ $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projec
 
 `http://<Public-IP-Address>:80`
 
-![alt text](./Images/display.PNG)
+![alt text](../project-1a/Images/display.PNG)
 
 
 # STEP 5 - ENABLE PHP ON THE WEBSITE
@@ -175,9 +175,9 @@ Create a new file named index.php inside your custom web root folder:
 
 `vim /var/www/projectlamp/index.php`
 
-![alt text](./Images/php-config.PNG)
+![alt text](../project-1a/Images/php-config.PNG)
 
 
 - I saved and closed the file, refreshed the page and saw:
 
-  ![alt text](./Images/php-live.PNG)
+  ![alt text](../project-1a/Images/php-live.PNG)
