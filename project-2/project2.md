@@ -68,6 +68,7 @@
 
 ![alt text](../project-2/images/php-install.PNG)
 
+
 # STEP 4 - CONFIGURING NGINX TO USE PHP PROCESSOR
 
 - On Ubuntu 20.04, Nginx has one server block enabled by default and is configured to serve documents out of a directory at /var/www/html. While this works well for a single site, it can become difficult to manage if you are hosting multiple sites. Instead of modifying /var/www/html, we’ll create a directory structure within /var/www for the your_domain website, leaving /var/www/html in place as the default directory to be served if a client request does not match any other sites.
@@ -92,7 +93,8 @@
 
        `sudo nginx -t`
 
-       ![Alt text](../project-2/images/error-free.PNG)
+      
+       ![alt text](../project-2/images/error-free.PNG)
 
 
 
@@ -116,5 +118,6 @@
       - Then I opened the below url in my chrome browser :
       `http://54.226.16.249/`
 
+      
       ![alt text](../project-2/images/active.PNG)
 
