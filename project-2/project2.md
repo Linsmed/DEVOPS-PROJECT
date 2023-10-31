@@ -109,6 +109,7 @@ server {
 
     location ~ /\.ht {
         deny all;
+    }
     }`
 
 
