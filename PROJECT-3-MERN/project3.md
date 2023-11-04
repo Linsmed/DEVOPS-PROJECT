@@ -15,7 +15,7 @@
 
 `sudo apt update`
 
-![ubuntu-update](./ubuntu-update.PNG)
+![ubuntu-update](../PROJECT-3-MERN/images/ubuntu-update.PNG)
 
 - I upgraded ubuntu by running this command:
 
@@ -23,7 +23,7 @@
 
 - This command upgrades to the latest version and discard the old version while update command update and still keep the old version
 
-![ubuntu-upgrade](./ubuntu-upgrade.PNG)
+![ubuntu-upgrade](../PROJECT-3-MERN/images/ubuntu-upgrade.PNG)
 
 - I Installed Node.js with the command below
 
@@ -31,19 +31,19 @@
 
 -Note: The command above installs both nodejs and npm. NPM is a package manager for Node like apt for Ubuntu, it is used to install Node modules & packages and to manage dependency conflicts.
 
-![nodejs-install](./nodejs-install.PNG)
+![nodejs-install](../PROJECT-3-MERN/images/nodejs-install.PNG)
 
 - I verified node is installed by running the command below
 
 `node -v`
 
-![node-verify](./node-verify.PNG)
+![node-verify](../PROJECT-3-MERN/images/node-verify.PNG)
 
 - I verified npm is installed by running this command
 
 `npm -v`
 
-![npm-verify](./npm-verify.PNG)
+![npm-verify](../PROJECT-3-MERN/images/npm-verify.PNG)
 
 - I created a new directory for my To-Do project:
 
@@ -217,3 +217,27 @@ module.exports = router;`
 
 
 # STEP 4 - MONGODB DATABASE
+# STEP 5 -  CREATING THE FRONTEND
+- we are done with the functionality we want from our api, it is time to create an interface for the client to interact with the api. To start out with the frontend of the todo app, we will use the create-react-app command to scaffold our app.
+
+- In our Todo directory, We will run:
+
+`$ npx create-react-app client`
+
+- This will create a new folder in our Todo directory called client, where we will add all the react code.
+![react-app](../PROJECT-3-MERN/images/REACT-APP.PNG)
+
+### step 6- Running the React App
+
+- Before testing the react app, there are a number of dependencies that need to be installed.
+
+- We need to Install concurrently: It is used to run more than one command simultaneously from the same terminal window.
+
+` npm install concurrently --save-dev`
+![npm-install](../PROJECT-3-MERN/images/npm-install.PNG)
+
+- We need to Install nodemon: It is used to run and monitor the server. If there is any change in the server code, nodemon will restart it automatically and load the new changes.
+
+`npm install nodemon --save-dev`
+![nodemon](../PROJECT-3-MERN/images/nodemon.PNG)
+
