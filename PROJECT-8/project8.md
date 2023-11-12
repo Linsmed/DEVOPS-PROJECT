@@ -4,18 +4,15 @@
 
 ### When we access a website in the Internet we use an URL and we do not really know how many servers are out there serving our requests, this complexity is hidden from a regular user, but in case of websites that are being visited by millions of users per day (like Google or facebook) it is impossible to serve all the users from a single Web Server (it is also applicable to databases, but for now we will not focus on distributed DBs).
 
-
 ### Each URL contains a domain name part, which is translated (resolved) to IP address of a target server that will serve requests when open a website in the Internet. Translation (resolution) of domain names is perormed by DNS servers.
-
 
 ### Load balancing
 
 #### Refers to efficiently distributing incoming network traffic across a group of backend servers, also known as a server farm or server pool. Modern high‑traffic websites must serve hundreds of thousands, if not millions, of concurrent requests from users or clients and return the correct text, images, video, or application data, all in a fast and reliable manner. To cost‑effectively scale to meet these high volumes, modern computing best practice generally requires adding more servers.
 
-###  A load balancer
+### A load balancer
 
 ### Acts as the “traffic cop” sitting in front of your servers and routing client requests across all servers capable of fulfilling those requests in a manner that maximizes speed and capacity utilization and ensures that no one server is overworked, which could degrade performance. If a single server goes down, the load balancer redirects traffic to the remaining online servers. When a new server is added to the server group, the load balancer automatically starts to send requests to it.
-
 
 #### In this manner, a load balancer performs the following functions:
 
@@ -23,88 +20,88 @@
 - Ensures high availability and reliability by sending requests only to servers that are online
 - Provides the flexibility to add or subtract servers as demand dictates
 
-![](../PROJECT-8/images/loadbalancer.png)
 
+    ![](../PROJECT-8/images/loadbalancer.png)
 
 #### Difference between L4 and L7 Load Balancing
+
 #### L4 load balancing offers traffic management of transactions at the network protocol layer (TCP/UDP). L4 load balancing delivers traffic with limited network information with a load balancing algorithm (i.e. round-robin) and by calculating the best server based on fewest connections and fastest server response times.
 
 #### L7 load balancing works at the highest level of the OSI model. L7 bases its routing decisions on various characteristics of the HTTP/HTTPS header, the content of the message, the URL type, and information in cookies.
 
 #### In this project we will enhance our Tooling Website solution by adding a Load Balancer to disctribute traffic between Web Servers and allow users to access our website using a single URL.
 
+    ![](../PROJECT-8/images/nfs.png)
 
-![](../PROJECT-8/images/nfs.png)
+    ### Task
 
-### Task
-
-### We will deploy and configure an Apache Load Balancer for Tooling Website solution on a separate Ubuntu EC2 instance. We will make sure that users can be served by Web servers through the Load Balancer. We can implement this solution with 2 Web Servers for simplicity, the approach will be the same for 3 and more Web Servers.
-
-
-### Prerequisites
-
-#### Make sure that we have the following servers installed and configured within Devops Tooling Website Solution:
-
-- Two RHEL8 Web Servers
-- One MySQL DB Server (based on Ubuntu 20.04)
-- One RHEL8 NFS server
-
-![](../PROJECT-8/images/nfs-traffic.png)
+    ### We will deploy and configure an Apache Load Balancer for Tooling Website solution on a separate Ubuntu EC2 instance. We will make sure that users can be served by Web servers through the Load Balancer. We can implement this solution with 2 Web Servers for simplicity, the approach will be the same for 3 and more Web Servers.
 
 
+    ### Prerequisites
 
-### STEP - 1
+    #### Make sure that we have the following servers installed and configured within Devops Tooling Website Solution:
 
-### Configure Apache As A Load Balancer
+    - Two RHEL8 Web Servers
+    - One MySQL DB Server (based on Ubuntu 20.04)
+    - One RHEL8 NFS server
 
-- Create an Ubuntu Server 20.04 EC2 instance and name it Project-8-apache-lb.
-
-
-- Open TCP port 80 on Project-8-apache-lb by creating an Inbound Rule in Security Group.
-
-- Install Apache Load Balancer on Project-8-apache-lb server and configure it to point traffic coming to LB to both Web Servers
-
-### Install apache2
-
-`$ sudo apt update
-$ sudo apt install apache2 -y
-$ sudo apt-get install libxml2-dev`
-
-### Enable following modules:
-
-`$ sudo a2enmod rewrite
-$ sudo a2enmod proxy
-$ sudo a2enmod proxy_balancer
-$ sudo a2enmod proxy_http
-$ sudo a2enmod headers
-$ sudo a2enmod lbmethod_bytraffic`
+    ![](../PROJECT-8/images/nfs-traffic.png)
 
 
 
-### Restart apache2 service
+     ### STEP - 1
 
-` sudo systemctl restart apache2`
+     ### Configure Apache As A Load Balancer
 
-![](../PROJECT-8/images/apache.PNG)
-
-## Make sure apache2 is up and running
-
-`sudo systemctl status apache2`
-
-![](../PROJECT-8/images/apache-confirm.PNG)
+     - Create an Ubuntu Server 20.04 EC2 instance and name it Project-8-apache-lb.
 
 
-## Configure load balancing
+     - Open TCP port 80 on Project-8-apache-lb by creating an Inbound Rule in Security Group.
 
-`$ sudo vi /etc/apache2/sites-available/000-default.conf`
+     - Install Apache Load Balancer on Project-8-apache-lb server and configure it to point traffic coming to LB to both Web Servers
+
+     ### Install apache2
+
+     `$ sudo apt update
+     $ sudo apt install apache2 -y
+     $ sudo apt-get install libxml2-dev`
+
+     ### Enable following modules:
+
+    `$ sudo a2enmod rewrite
+     $ sudo a2enmod proxy
+     $ sudo a2enmod proxy_balancer
+     $ sudo a2enmod proxy_http
+     $ sudo a2enmod headers
+     $ sudo a2enmod lbmethod_bytraffic`
 
 
-## Add this configuration into this section
+
+      ### Restart apache2 service
+
+      ` sudo systemctl restart apache2`
+
+       ![](../PROJECT-8/images/apache.PNG)
+
+       ## Make sure apache2 is up and running
+
+       `sudo systemctl status apache2`
+
+       ![](../PROJECT-8/images/apache-confirm.PNG)
 
 
-`<VirtualHost *:80>  </VirtualHost>
+       ## Configure load balancing
 
-<Proxy "balancer://mycluster">
+      `$ sudo vi /etc/apache2/sites-available/000-default.conf`
+
+
+       ## Add this configuration into this section
+
+
+       `<VirtualHost *:80>  </VirtualHost>
+
+        <Proxy "balancer://mycluster">
                BalancerMember http://<WebServer1-Private-IP-Address>:80 loadfactor=5 timeout=1
                BalancerMember http://<WebServer2-Private-IP-Address>:80 loadfactor=5 timeout=1
                ProxySet lbmethod=bytraffic
@@ -117,38 +114,38 @@ $ sudo a2enmod lbmethod_bytraffic`
 
         ![](../PROJECT-8/images/Configuration.PNG)
 
-## Restart apache server
+      ## Restart apache server
 
-`sudo systemctl restart apache2`
+      `sudo systemctl restart apache2`
 
- ## bytraffic balancing method will distribute incoming load between our Web Servers according to current traffic load. We can control in which proportion the traffic must be distributed by loadfactor parameter.
+       ## bytraffic balancing method will distribute incoming load between our Web Servers according to current traffic load. We can control in which proportion the traffic must be distributed by loadfactor parameter.
 
-  ## Verify that our configuration works - try to access your LB’s public IP address or Public DNS name from your browser:
+       ## Verify that our configuration works - try to access your LB’s public IP address or Public DNS name from your browser:
 
- `http://<Load-Balancer-Public-IP-Address>/index.php`
+    `http://<Load-Balancer-Public-IP-Address>/index.php`
 
- ![](../PROJECT-8/images/load.PNG)
+      ![](../PROJECT-8/images/load.PNG)
 
- ## Note: If in the Devops Tooling Website Solution we mounted /var/log/httpd/ from our Web Servers to the NFS server - unmount them and make sure that each Web Server has its own log directory.
+       ## Note: If in the Devops Tooling Website Solution we mounted /var/log/httpd/ from our Web Servers to the NFS server - unmount them and make sure that each Web Server has its own log directory.
 
- `sudo umount -l ip-address:/mnt/logs`
+       `sudo umount -l ip-address:/mnt/logs`
 
- ## Open two ssh/Putty consoles for both Web Servers and run following command:
+      ## Open two ssh/Putty consoles for both Web Servers and run following command:
 
-  ` sudo tail -f /var/log/httpd/access_log`
+      ` sudo tail -f /var/log/httpd/access_log`
 
- ![](../PROJECT-8/images/refresh1.PNG)
+      ![](../PROJECT-8/images/refresh1.PNG)
 
-![](../PROJECT-8/images/refresh2.PNG)
+     ![](../PROJECT-8/images/refresh2.PNG)
 
- ## Try to refresh our browser page
- - http://Load-Balancer-Public-IP-Address/index.php several times and make sure that both servers receive HTTP GET requests from your LB - new records must appear in each server’s log file. The number of requests to each server will be approximately the same since we set loadfactor to the same value for both servers - it means that traffic will be disctributed evenly between them.
+      ## Try to refresh our browser page
+     - http://Load-Balancer-Public-IP-Address/index.php several times and make sure that both servers receive HTTP GET requests from your LB - new records must appear in each server’s log file. The number of requests to each server will be approximately the same since we set loadfactor to the same value for both servers - it means that traffic will be disctributed evenly between them.
 
- - If we have configured everything correctly our users will not even notice that their requests are served by more than one server.
+      - If we have configured everything correctly our users will not even notice that their requests are served by more than one server.
 
- ## Optional Step - Configure Local DNS Names Resolution
+      ## Optional Step - Configure Local DNS Names Resolution
 
-- Sometimes it is tedious to remember and switch between IP addresses, especially if we have a lot of servers under our management. What we can do, is to configure local domain name resolution. The easiest way is to use /etc/hosts file, although this approach is not very scalable, but it is very easy to configure and shows the concept well. So let us configure IP address to domain name mapping for our LB
+      - Sometimes it is tedious to remember and switch between IP addresses, especially if we have a lot of servers under our management. What we can do, is to configure local domain name resolution. The easiest way is to use /etc/hosts file, although this approach is not very scalable, but it is very easy to configure and shows the concept well. So let us configure IP address to domain name mapping for our LB
 
 
        - Open this file on our LB server
