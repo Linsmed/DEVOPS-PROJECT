@@ -144,11 +144,11 @@
       ## Try to refresh our browser page
      - http://Load-Balancer-Public-IP-Address/index.php several times and make sure that both servers receive HTTP GET requests from your LB - new records must appear in each server’s log file. The number of requests to each server will be approximately the same since we set loadfactor to the same value for both servers - it means that traffic will be disctributed evenly between them.
 
-      - If we have configured everything correctly our users will not even notice that their requests are served by more than one server.
+     - If we have configured everything correctly our users will not even notice that their requests are served by more than one server.
 
-      ## Optional Step - Configure Local DNS Names Resolution
+ ## Optional Step - Configure Local DNS Names Resolution
 
-      - Sometimes it is tedious to remember and switch between IP addresses, especially if we have a lot of servers under our management. What we can do, is to configure local domain name resolution. The easiest way is to use /etc/hosts file, although this approach is not very scalable, but it is very easy to configure and shows the concept well. So let us configure IP address to domain name mapping for our LB
+- Sometimes it is tedious to remember and switch between IP addresses, especially if we have a lot of servers under our management. What we can do, is to configure local domain name resolution. The easiest way is to use /etc/hosts file, although this approach is not very scalable, but it is very easy to configure and shows the concept well. So let us configure IP address to domain name mapping for our LB
 
 
        - Open this file on our LB server
