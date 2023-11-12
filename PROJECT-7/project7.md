@@ -1,4 +1,5 @@
 ## DEVOPS-TOOLING-WEBSITE-SOLUTION
+
 ## NFS Server
 
 - Network File System (NFS) is a distributed file system protocol originally developed by Sun Microsystems (Sun) in 1984, allowing a user on a client computer to access files over a computer network much like local storage is accessed. NFS, like many other protocols, builds on the Open Network Computing Remote Procedure Call (ONC RPC) system. NFS is an open standard defined in a Request for Comments (RFC), allowing anyone to implement the protocol.
@@ -16,7 +17,6 @@
 `sudo gdisk /dev/xvdf`
 
 ![](../PROJECT-7/images/gdisk1.PNG)
-
 
 `sudo gdisk /dev/xvdg`
 
@@ -62,7 +62,6 @@
 
 `sudo mkdir  /mnt/opt`
 
-
 - We need to Mount lv-apps on /mnt/apps logical volume
 
 `sudo mount /dev/webdata-vg/lv-apps /mnt/apps/`
@@ -80,7 +79,6 @@
 ![](../PROJECT-7/images/mount-verify.PNG)
 
 - We will Install and configure NFS server
-
 
 `sudo yum -y update`
 
@@ -133,11 +131,10 @@ sudo exportfs -arv`
 `rpcinfo -p | grep nfs`
 
 ![](../PROJECT-7/images/ports.PNG)
+
 - mportant note: In order for NFS server to be accessible from your client, you must also open following ports: TCP 111, UDP 111, UDP 2049
 
 ![](../PROJECT-7/images/rules.PNG)
-
-
 
 ## Step 2 — Configure the database server
 
@@ -149,10 +146,10 @@ sudo exportfs -arv`
 
 ![](../PROJECT-7/images/mysql.PNG)
 
-
 - We need to create a database and name it tooling
 
 `mysql> CREATE database tooling;`
+
 - PHP applications because those commands uses caching_sha2_password for its password encryption. So we can only use the command below for the creation of the database user password.
 
 - We need to create a database user and name it webaccess
@@ -169,8 +166,6 @@ sudo exportfs -arv`
 
 ![](../PROJECT-7/images/host.PNG)
 
-
-
 ## Prepare the Web Servers
 
 - The webservers will use the NFS as its backend storage. Hence, it is important to configure the web servers as NFS client. We will follow the below steps to
@@ -178,7 +173,6 @@ sudo exportfs -arv`
 - We need to update and Install NFS client
 
 `sudo yum update -y`
-
 
 `sudo yum install nfs-utils nfs4-acl-tools -y`
 
@@ -221,7 +215,6 @@ sudo systemctl enable php-fpm
 
 setsebool -P httpd_execmem 1`
 
-
 - We need to install git to clone our repository from out github account
 
 `sudo yum install git`
@@ -231,3 +224,7 @@ setsebool -P httpd_execmem 1`
 `sudo cp -R  html/. /var/www/html `
 
 ![](../PROJECT-7/images/copy.PNG)
+
+![](../PROJECT-7/images/Cafinal.PNG)
+
+![](../PROJECT-7/images/admin.PNG)
